@@ -3,7 +3,7 @@ from pygame import Rect
 from pygamefwk.objects                   import Component, GameObject
 from pygamefwk.objects.components.reset  import on_reset
 from pygamefwk.event                     import Event
-from pygamefwk.vector                    import Vector
+from pygame.math import Vector2 as Vector
 
 from collections import deque
 from typing import List

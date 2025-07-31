@@ -1,7 +1,7 @@
 import pygame
 from pygamefwk.objects.ui import NEWLINE
 from pygamefwk.objects.ui.ui import UI
-from pygamefwk.vector import Vector
+from pygame.math import Vector2 as Vector
 
 # (path, size): font
 class Text(UI):

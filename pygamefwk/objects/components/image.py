@@ -2,7 +2,7 @@ import pygame
 from pygamefwk.objects.component import Component
 from pygamefwk.objects.gameobject import GameObject
 from pygamefwk.manger import Manger
-from pygamefwk.vector import Vector
+from pygame.math import Vector2 as Vector
 from pygamefwk.objects.components.collide_mouse import collide_images
 from pygamefwk.objects.components.reset import on_reset
 
@@ -89,7 +89,7 @@ class ImageObject(Component):
                 setattr(rotated_rect, self.type, camera.centerXY(self.object.render_position))
             else:
                 rotated_rect = get_rotated_range(image.get_rect(), self.object.location.world_rotation + camera.location.world_rotation)
-                setattr(rotated_rect, self.type, camera(self.object.render_position.floor_vector()))
+                setattr(rotated_rect, self.type, camera(self.object.render_position))
 
             if rotated_rect.colliderect(0, 0, Manger.WIDTH, Manger.HEIGHT): # 화면안에 일부라도 있으면 실행합니다
                 self.image = pygame.transform.flip(image, *self.flip)
@@ -99,9 +99,9 @@ class ImageObject(Component):
                     self.image = pygame.transform.rotate(self.image, self.object.location.world_rotation + camera.location.world_rotation)
 
                 if self.camera_staticable: # 이미지의 위치를 지정합니다
-                    self.rect = self.image.get_rect(**{self.type:camera.centerXY(self.object.render_position.floor_vector())})
+                    self.rect = self.image.get_rect(**{self.type:camera.centerXY(self.object.render_position)})
                 else:
-                    self.rect = self.image.get_rect(**{self.type:camera(self.object.render_position.floor_vector())})
+                    self.rect = self.image.get_rect(**{self.type:camera(self.object.render_position)})
                 surface.blit(self.image, self.rect)
 
 def get_rotated_range(rect: pygame.Rect, angle):
@@ -131,4 +131,4 @@ def get_rotated_range(rect: pygame.Rect, angle):
 
 def rotate_vector(x, y, rx, ry, angle):
     nvector = Vector(x - rx, y - ry).rotate(angle)
-    return nvector.floor_vector()
+    return nvector

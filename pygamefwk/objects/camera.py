@@ -1,6 +1,6 @@
 from pygame import Surface
 from pygamefwk.objects.gameobject import GameObject
-from pygamefwk.vector import Vector
+from pygame.math import Vector2 as Vector
 from pygamefwk.manger import Manger
 from typing import Sequence
 

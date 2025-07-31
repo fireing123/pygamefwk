@@ -2,7 +2,7 @@ from pygamefwk import util
 from pygamefwk.location import Location
 from pygamefwk.manger import Manger
 from pygamefwk.objects.object import Object
-from pygamefwk.vector import Vector
+from pygame.math import Vector2 as Vector
 from collections import deque
 
 class GameObject(Object):

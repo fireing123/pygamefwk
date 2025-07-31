@@ -4,7 +4,7 @@ pygame 의 마우스르 상속받음
 from pygamefwk.manger import Manger
 from pygamefwk.objects.components.collide_mouse import collide_images
 from pygame.mouse import *
-from pygamefwk import Vector
+from pygame.math import Vector2 as Vector
 
 def inget_pos():
     pos = Vector(get_pos())

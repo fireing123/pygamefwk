@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pygamefwk',
-    version='1.0.1',
+    version='1.0.2',
     description='pygame framework',
     author= 'fireing123',
     author_email= 'gimd82368@gmail.com',

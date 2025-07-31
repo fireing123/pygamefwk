@@ -1,7 +1,7 @@
 
 # 편의성 import
 
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 
 from pygamefwk.objects.component import Component
 

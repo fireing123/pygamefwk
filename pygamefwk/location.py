@@ -1,4 +1,4 @@
-from pygamefwk import Vector
+from pygame.math import Vector2 as Vector
 from typing import List, TYPE_CHECKING, Sequence
 
 if TYPE_CHECKING:
