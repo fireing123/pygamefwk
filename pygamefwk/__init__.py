@@ -1,7 +1,7 @@
 
 # 편의성 import
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 from pygamefwk.objects.component import Component
 
@@ -14,7 +14,7 @@ from pygamefwk.timertask import TimerTask, OnceTimerTask
 from pygamefwk.input     import Input
 from pygamefwk.event     import Event
 from pygamefwk.location  import Location
-from pygamefwk import Vector
+from pygame.math import Vector2 as Vector
 
 from pygame import (
     Surface,
