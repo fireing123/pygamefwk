@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, Dict
 
 if TYPE_CHECKING:
     from pygamefwk.scene import Scene
-    from pygamefwk.sheet import SurfaceSheet, TileSheet
+    from pygamefwk.sheet import SurfaceSheet, TileSheet, SpriteSheet
 
 class Manger:
     """정적 변수를 이곳에 저장함"""
@@ -13,6 +13,7 @@ class Manger:
     delta_time: float
     tile_sheet: Dict[str, 'TileSheet']
     surface_sheet: Dict[str, 'SurfaceSheet']
+    sprite_sheet: Dict[str, 'SpriteSheet']
 
     @classmethod
     def init(cls, screen: pygame.Surface, none_scene: 'Scene'):

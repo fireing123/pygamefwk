@@ -1,16 +1,24 @@
+from uu import Error
 from pygamefwk.manger import Manger
 from pygamefwk.objects.gameobject import GameObject
 import math
 
 class TileMap(GameObject):
     """사분면으로 저장, 원점기준으로 계산함"""
-    def __init__(self, name, layer, tag, visible, position, rotation, parent_name, tiles, sheet_name):
+    def __init__(self, name, layer, tag, visible, position, rotation, parent_name, tiles, sheet_name, sheet_type):
         super().__init__(name, layer, tag, visible, position, rotation, parent_name)
         self.tiles : list[list[list[int]]] = tiles
-        self.sheet = Manger.tile_sheet[sheet_name]
+        if sheet_type == "tile":
+            self.sheet = Manger.tile_sheet[sheet_name]
+        elif sheet_type == "surface":
+            self.sheet = Manger.surface_sheet[sheet_name]
+        elif sheet_type == "sprite":
+            self.sheet = Manger.sprite_sheet[sheet_name]
+        else:
+            raise Error("sheet type error")
         self.sheet_name = sheet_name
         self.size = self.sheet.size
-        self.canvas = self.sheet.surfaces
+        self.canvas = self.sheet
 
     def set_tile(self, xy, value):
         x, y = xy

@@ -6,7 +6,7 @@ from pygamefwk.objects import *
 from pygamefwk.objects.components.physics import physics_objects
 
 from pygamefwk.manger import Manger
-from pygamefwk.sheet import TileSheet, SurfaceSheet
+from pygamefwk.sheet import TileSheet, SurfaceSheet, SpriteSheet
 
 from typing import List, TYPE_CHECKING, Sequence
 
@@ -140,12 +140,14 @@ class Scene:
         setting : dict =json['setting']
         objs =  json['objs']
 
+        # 로딩 길이 계산 (타일, 서피스, 스프라이트 시트, 게임오브젝트 포함)
         tile_len = sum([len(i[2]) for i in setting.get('tile', [])])
         surface_len = sum([len(i[2]) for i in setting.get('surface', [])])
+        sprite_sheet_len = sum([i[4] for i in setting.get('sprite_sheet', [])])  # 스프라이트 시트의 총 타일 수
 
         gameobject_len = sum([len(j) for i in objs for j in list(i.values())])
 
-        loading_length = tile_len + surface_len + gameobject_len
+        loading_length = tile_len + surface_len + sprite_sheet_len + gameobject_len
 
         loading_cnt = 0
 
@@ -154,8 +156,8 @@ class Scene:
             pygame.draw.rect(Manger.screen, (255, 255, 255), rect)
             pygame.display.update(rect)
 
+        # 타일 시트 로드
         tile_sheet = {}
-
         for tile_value in setting.get('tile', []):
             tile_sheet[tile_value[0]] = TileSheet(*tile_value)
             loading_cnt += len(tile_value[2])
@@ -163,14 +165,27 @@ class Scene:
 
         Manger.tile_sheet = tile_sheet
 
+        # 서피스 시트 로드
         surface_sheet = {}
-
         for surface_value in setting.get('surface', []):
             surface_sheet[surface_value[0]] = SurfaceSheet(*surface_value) 
             loading_cnt += len(surface_value[2])
             draw()
 
         Manger.surface_sheet = surface_sheet
+
+        # 스프라이트 시트 로드
+        sprite_sheet = {}
+        for sprite_value in setting.get('sprite_sheet', []):
+            sprite_sheet[sprite_value[0]] = SpriteSheet(*sprite_value)
+            loading_cnt += sprite_value[4]  # 총 타일 수만큼 증가
+            draw()
+        
+        Manger.sprite_sheet = sprite_sheet
+        
+        setting.pop("tile")
+        setting.pop("surface")
+        setting.pop("sprite_sheet")
         
         for key, value in setting.items():
             setattr(Manger, key, value)

@@ -24,12 +24,14 @@ class Physics(Component):
         self.object = object
         self.rect = rect
         self.on_ground = False
-        self.friction = 0.45
-        self.air_friction = 0.1
+        self.friction = kwargs.get("friction", 0.45)
+        self.air_friction = kwargs.get("air_friction", 0.1)
         self.velocity = Vector(0, 0)
         self.type: str = kwargs.get('type', 'center')
         physics_objects.append(self)
         self.collision_enter_event = Event()
+        self.gravity_weigth = kwargs.get("gravity_wegith", 1)
+        self.gravity_effect = kwargs.get("gravity", True)
 
     def delete(self):
         try:
@@ -67,27 +69,42 @@ class Physics(Component):
                         collide_type = 3 # right
                 queue.append((ground, collide_type))
 
+        encounted = False
         while queue:
+            encounted = True
             ground, collide_type = queue.popleft()
             self.collision_enter_event.invoke(ground, collide_type)
 
         self.rect = next_rect
         self.object.location.position = getattr(next_rect, self.type)
 
-        self.velocity.y -= gravity
+        self.velocity.y -= gravity * self.gravity_weigth if self.gravity_effect else 0
 
         if self.velocity.y < -20: # 종속 속도
-            self.velocity.y += gravity + self.air_friction
+            self.velocity.y += gravity * self.gravity_weigth + self.air_friction
         
         if self.velocity.x < -0.2:
-            if self.on_ground:
+            if encounted:
                 self.velocity.x += self.friction
             else:
                 self.velocity.x += self.air_friction
         elif self.velocity.x > 0.2:
-            if self.on_ground:
+            if encounted:
                 self.velocity.x -= self.friction
             else:
                 self.velocity.x -= self.air_friction
         else:
             self.velocity.x = 0
+
+        if self.velocity.y < -0.2:
+            if encounted:
+                self.velocity.y += self.friction
+            else:
+                self.velocity.y += self.air_friction
+        elif self.velocity.y > 0.2:
+            if encounted:
+                self.velocity.y -= self.friction
+            else:
+                self.velocity.y -= self.air_friction
+        else:
+            self.velocity.y = 0

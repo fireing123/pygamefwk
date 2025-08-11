@@ -54,6 +54,9 @@ class ImageObject(Component):
         self.camera_staticable = kwargs.get("follow", False)
         self.flip = kwargs.get("filp", [False, False]) # 반전하면 True
         self.type = 'center' if kwargs.get('type') == None else kwargs['type']
+        
+        # 사이즈 벡터 변수 추가 (뽀잉뽀잉 효과용)
+        self.size_vector = Vector(1.0, 1.0)  # 기본 크기 1배
 
         self.image = self.og_image
 
@@ -72,6 +75,14 @@ class ImageObject(Component):
 
     def set_orginal_image(self, image):
         self.og_image = image
+
+    def set_size_vector(self, size_vector: Vector):
+        """사이즈 벡터 설정 (뽀잉뽀잉 효과용)"""
+        self.size_vector = size_vector
+
+    def get_size_vector(self) -> Vector:
+        """현재 사이즈 벡터 반환"""
+        return self.size_vector
 
     def delete(self):
         try:
@@ -92,6 +103,12 @@ class ImageObject(Component):
                 setattr(rotated_rect, self.type, camera(self.object.render_position))
 
             if rotated_rect.colliderect(0, 0, Manger.WIDTH, Manger.HEIGHT): # 화면안에 일부라도 있으면 실행합니다
+                # 사이즈 벡터 적용 (rotate 전에 적용)
+                if self.size_vector != Vector(1.0, 1.0):
+                    original_size = image.get_size()
+                    new_size = (int(original_size[0] * self.size_vector.x), int(original_size[1] * self.size_vector.y))
+                    image = pygame.transform.scale(image, new_size)
+                
                 self.image = pygame.transform.flip(image, *self.flip)
                 if self.camera_staticable: # 이미지를 실제도 돌립니다
                     self.image = pygame.transform.rotate(self.image, self.object.location.world_rotation)
