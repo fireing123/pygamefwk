@@ -30,7 +30,7 @@ pygame physics의 물리 계산없고 Scene 저장 능력이 상승된 버전.
           "visible": true,
           "position": [0, 0],
           "rotation": 0,
-          "parent_name": "",
+          "parent_name": "parent",
           "scale": 1.0
         }
       ]
@@ -44,9 +44,6 @@ pygame physics의 물리 계산없고 Scene 저장 능력이 상승된 버전.
 ```json
 {
   "setting": {
-    "WIDTH": 800,
-    "HEIGHT": 600,
-    "FPS": 60,
     "tile": [
       ["tileset", false, ["assets/tiles/grass.png", "assets/tiles/stone.png", "assets/tiles/water.png"], 1.0]
     ],
@@ -68,7 +65,7 @@ pygame physics의 물리 계산없고 Scene 저장 능력이 상승된 버전.
           "visible": true,
           "position": [0, 0],
           "rotation": 0,
-          "parent_name": "",
+          "parent_name": "parent",
           "scale": 1.0
         }
       ]
@@ -82,7 +79,7 @@ pygame physics의 물리 계산없고 Scene 저장 능력이 상승된 버전.
           "visible": true,
           "position": [400, 300],
           "rotation": 0,
-          "parent_name": "",
+          "parent_name": "parent",
           "scale": 1.0
         }
       ]
@@ -96,7 +93,7 @@ pygame physics의 물리 계산없고 Scene 저장 능력이 상승된 버전.
           "visible": true,
           "position": [200, 200],
           "rotation": 0,
-          "parent_name": "",
+          "parent_name": "parent",
           "scale": 1.0
         },
         {
@@ -106,7 +103,7 @@ pygame physics의 물리 계산없고 Scene 저장 능력이 상승된 버전.
           "visible": true,
           "position": [600, 400],
           "rotation": 0,
-          "parent_name": "",
+          "parent_name": "parent",
           "scale": 1.0
         }
       ]
@@ -118,9 +115,6 @@ pygame physics의 물리 계산없고 Scene 저장 능력이 상승된 버전.
 ### JSON 구조 설명
 
 #### setting 섹션
-- **WIDTH**: 화면 너비
-- **HEIGHT**: 화면 높이
-- **FPS**: 프레임 레이트
 - **tile**: 타일 이미지들 (개별 파일)
   - `[name, is_hits, [paths...], scale]`
 - **surface**: 서피스 이미지들 (개별 파일)
@@ -136,6 +130,6 @@ pygame physics의 물리 계산없고 Scene 저장 능력이 상승된 버전.
   - **tag**: 태그
   - **visible**: 보이기 여부
   - **position**: 위치 [x, y]
-  - **rotation**: 회전 각도
-  - **parent_name**: 부모 객체 이름 (없으면 "")
-  - **scale**: 크기 배율
+  - **rotation**: 회전 각도 360 degree
+  - **parent_name**: 부모 객체 이름 (없으면 "parent")
+  - **scale**: 크기 배율 [x, y]
