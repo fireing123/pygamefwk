@@ -1,0 +1,27 @@
+{
+    "setting": {
+        "tile": [],
+        "surface": []
+    },
+    "objs": [
+        {
+            "CameraObject": [{
+            "name": "main_cam",
+            "tag": "camera",
+            "visible": true,
+            "position": [0, 160],
+            "rotation": 0,
+            "parent_name": "parent"
+            }],
+            "Player": [{
+            "name": "player",
+            "layer": 3,
+            "tag": "player",
+            "visible": true,
+            "position": [0, 160],
+            "rotation": 0,
+            "parent_name": "parent"
+            }],
+        }
+    ]
+}

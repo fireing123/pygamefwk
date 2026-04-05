@@ -65,6 +65,9 @@ class Location:
     def rotation(self, degree: int):
         if degree > 360:
             degree = degree // 360
+        elif degree < 0:
+            degree = degree // 360
+            degree += 360
         self.__rotation = degree
         self.change_location()
         
@@ -83,7 +86,13 @@ class Location:
     def change_location(self):
         """상위 오브젝트의 Location 정보가 갱신되거나 객체의 정보가 변경되면 world_XXX 를 업데이트 하기 위해 정해짐"""
         self.__world_position: Vector = self.parent.world_position + self.__position.rotate(self.parent.rotation)
-        self.__world_rotation: int = self.parent.world_rotation + self.__rotation
+        degree = self.parent.world_rotation + self.__rotation
+        if degree > 360:
+            degree = degree // 360
+        elif degree < 0:
+            degree = degree // 360
+            degree += 360
+        self.__world_rotation: int = degree
         self.__world_visible: bool = self.visible and self.parent.world_visible
         for child in self.children:
             child.change_location()

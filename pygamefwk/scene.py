@@ -183,9 +183,9 @@ class Scene:
         
         Manger.sprite_sheet = sprite_sheet
         
-        setting.pop("tile")
-        setting.pop("surface")
-        setting.pop("sprite_sheet")
+        setting.pop("tile", None)
+        setting.pop("surface", None)
+        setting.pop("sprite_sheet", None)
         
         for key, value in setting.items():
             setattr(Manger, key, value)

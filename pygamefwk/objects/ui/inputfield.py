@@ -258,7 +258,7 @@ class InputField(UI):
             if self.field.text == "":
                 self.fake.location.visible = True
 
-    def event(self, event) -> None:
+    def event(self, event: pygame.event.Event) -> None:
         """
         pygame 이벤트를 직접 처리합니다.
 
@@ -282,7 +282,6 @@ class InputField(UI):
                 if len(self.text) < self.limit:
                     self.focus_insert(event.text)
                     self.bar_reset()
-
 
 class InputLine(UI):
     """

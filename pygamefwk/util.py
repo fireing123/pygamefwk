@@ -1,14 +1,12 @@
 import json5
-from pygamefwk.error import JsonSerializableError
-from pygamefwk.error import ImmutableAttributeError
 
 class const(property):
     def settar(self, value):
-        raise ImmutableAttributeError("이 속성은 불변입니다 값을 할당하려 하지 마십시오")
+        raise AttributeError("이 속성은 불변입니다 값을 할당하려 하지 마십시오")
 
 class getter(property):
     def settar(self, value):
-        raise ImmutableAttributeError("이 속성은 할당할수없습니다 값을 할당하려 하지 마십시오")
+        raise AttributeError("이 속성은 할당할수없습니다 값을 할당하려 하지 마십시오")
 
 def string_insert(string: str, insert_string: str, index: int):
     if len(string) < index or index < 0:
@@ -83,5 +81,5 @@ def check_json_serializable(dic: dict):
         elif isinstance(value, dict):
             check_json_serializable(value)
         else:
-            raise JsonSerializableError(f"{type(value)} 타입은 json 에 저장할수 있는 타입이 아닙니다")
+            raise ValueError(f"{type(value)} 타입은 json 에 저장할수 있는 타입이 아닙니다")
 

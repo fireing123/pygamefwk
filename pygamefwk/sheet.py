@@ -11,7 +11,7 @@ import pygame
 from pygame import image, PixelArray, Surface
 from pygame.transform import scale
 from pygamefwk.objects.components.image import red
-from typing import List, Tuple, Optional
+from typing import List, Optional
 
 
 class SurfaceSheet:
